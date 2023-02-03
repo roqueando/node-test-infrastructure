@@ -1,0 +1,15 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-test-infra
+  namespace: default
+spec:
+  selector:
+    app: node-test-infra
+  type: LoadBalancer 
+  ports:
+  - name: node-test-infra
+    protocol: TCP
+    port: 3000

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-test-infra
+  namespace: default
+spec:
+  selector:
+    app: node-test-infra
+  type: LoadBalancer 
+  ports:
+  - name: node-test-infra
+    protocol: TCP
+    port: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-test-infra
+spec:
+  selector:
+    matchLabels:
+      app: node-test-infra
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: node-test-infra
+    spec:
+      containers:
+      - name: node-test-infra
+        image: roqueando/node-test-infra:0.2.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
