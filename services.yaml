@@ -1,5 +1,3 @@
-# https://kubernetes.io/docs/concepts/services-networking/service/
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,3 +11,15 @@ spec:
   - name: node-test-infra
     protocol: TCP
     port: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  selector:
+    app: nginx
+  type: ClusterIP
+  ports:
+  - port: 80
